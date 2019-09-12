@@ -1,0 +1,185 @@
+<div id="navbar">
+    <div (click)="showFavorites()"  style="margin-right: 30px;">Favoritos</div>
+    <div (click)="hideFavorites()">Lista</div>
+</div>
+
+<div *ngIf="favoritesFlag == false">     
+    <div style="display: flex; flex-direction: row; margin: 0px 20px;">
+        <div class="movies-container" style="width:40%;">
+
+            <div class="search-bar">
+                <img src="assets/ironman-logo.png" alt="Iron armor">
+                <input type="text" placeholder="Comic name" [(ngModel)]="comicName">
+                <button (click)="getMoviesFiltered(comicName)">Search</button>
+            </div>
+            <div class="movie-list">
+                <cdk-virtual-scroll-viewport itemSize="200"  minBufferPx="800" maxBufferPx="1600" class="viewport">
+                    <div *cdkVirtualFor="let movie of movies; let i = index" class="movie-item" (click)="getIndex(i)">
+                            <span>
+                                <img [src]="movie.thumbnail.path + '.' + movie.thumbnail.extension" alt="Comic thumbnail"
+                                height="200px">
+                            </span>
+                            <span style="position: relative;">
+                                <p>{{ movie.title}}</p>
+                                <p>{{ movie.format }}</p>
+
+                                <p class="add-favorites" (click)="addToFavorites(movie)">Add to Favorites</p>
+                            </span>
+                    </div>
+                </cdk-virtual-scroll-viewport>
+            </div>
+
+        </div>
+            <app-single-movie  *ngIf="movieFlag == true" [movie]="movies[movieIndex]"></app-single-movie>
+    </div>    
+</div>
+<div *ngIf="favoritesFlag == true">
+    <div style="display: flex; flex-direction: row; margin: 0px 20px;">
+        <div class="movies-container" style="width:40%;">
+
+            <div class="search-bar" id="favorites-area">
+                <h1 id="favorites-label">My Favorites</h1>
+            </div>
+            <div class="movie-list">
+                <cdk-virtual-scroll-viewport itemSize="200"  minBufferPx="800" maxBufferPx="1600" class="viewport">
+                    <div *cdkVirtualFor="let movie of favorites; let i = index" class="movie-item" (click)="getIndex(i);">
+                            <span>
+                                <img [src]="movie.thumbnail.path + '.' + movie.thumbnail.extension" alt="Comic thumbnail"
+                                height="200px">
+                            </span>
+                            <span>
+                                <p>{{ movie.title }}</p>
+                                <p>{{ movie.format }}</p>
+                            </span>  
+                    </div>
+                </cdk-virtual-scroll-viewport>
+            </div>
+
+        </div>
+        <app-single-movie  *ngIf="movieFlag == true" [movie]="favorites[movieIndex]"></app-single-movie>
+    </div>
+</div>
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Titillium+Web&display=swap');
+
+    app-single-movie {
+        width: 60%;
+    }
+
+    .add-favorites {
+        bottom: 0px;
+        position: absolute;
+    }
+
+    .add-favorites:hover {
+        cursor: pointer;
+        color: red;
+    }
+
+    #favorites-area {
+        margin:0px;
+    }
+
+    #favorites-label {
+        font-family: 'Titillium Web', sans-serif;
+        color: white;
+        font-size: 40px;
+    }
+
+    .viewport {
+        height: 750px;
+        border-radius: 10px;
+    }
+
+
+
+
+    #navbar {
+        background-color: #2A3759;
+        overflow: hidden;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #navbar div {
+        font-family: 'Titillium Web', sans-serif;
+        float: right;
+        color: white;
+        padding: 14px 20px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 20px;
+    }
+
+    #navbar div:hover {
+        background-color: #364773;
+        cursor: pointer;
+    }
+
+    #navbar div:active {
+        background-color: #364773;
+    }
+
+
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0px;
+        width:100%;
+    }
+
+    .search-bar img{
+        height: 80px;
+    }
+
+    .search-bar input {
+        font-family: 'Titillium Web', sans-serif;
+        width: 40%;
+        height: 50px;
+        border-radius: 10px;
+        border: none;
+        background-color: #2A3759;
+        color: white;
+        text-align: center;
+        font-size: 18px;
+        margin: 0px 20px;
+        -ms-transform: translateY(25%);
+        transform: translateY(25%);
+    }
+
+    .search-bar button {
+        font-family: 'Titillium Web', sans-serif;
+        width: 20%;
+        height: 50px;
+        border: none;
+        border-radius: 20px;
+        background-color: red;
+        color: white;
+        text-align: center;
+        font-size: 18px;
+        font-style: italic;
+        -ms-transform: translateY(25%);
+        transform: translateY(25%);
+    }
+
+
+    .movie-item {
+        margin-bottom: 20px;
+        display:flex;
+        justify-content: left;
+        height: 200px;
+        box-sizing: border-box;
+        background-color: #2A3759;
+        color:white;
+        font-family: 'Titillium Web', sans-serif;
+    }
+
+    .movie-item p {
+        margin-left: 20px;
+        overflow: auto;
+    }
+
+
+</style>

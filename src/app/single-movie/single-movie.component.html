@@ -1,0 +1,53 @@
+<div id="movie-container">
+    <div id="upper-part">
+        <img [src]="movie.images[movie.images.length-1].path + '.' + movie.images[movie.images.length-1].extension" alt="Comic Image">
+        <div id="movie-info">
+            <h1>{{ movie.title }}</h1>
+            <h3>{{ movie.modified }}</h3>
+            <h4> {{ movie.format }} </h4>
+        </div>
+    </div>
+    <div id="description-container">
+        <p>{{ movie.description }}</p>
+    </div>
+</div>
+
+<style>
+    * {
+        color:white;
+        font-family: 'Titillium Web', sans-serif;
+    }
+
+    #movie-container {
+        margin: 90px 50px 20px 70px;
+        border-radius: 10px;
+        height: 80%;;
+        padding: 50px 50px;
+    }
+
+    #upper-part {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #movie-info {
+        display:flex;
+        flex-direction: column;
+        margin-left: 50px;
+
+    }
+
+    #upper-part img{
+        height:35vh;
+        border-radius: 5px;
+    }
+
+    #description-container {
+        text-align: justify;
+        text-justify: inter-word;
+        font-size: 18px;
+        margin-top: 50px;
+    }
+
+
+</style>
