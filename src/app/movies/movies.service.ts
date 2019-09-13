@@ -21,8 +21,8 @@ export class MoviesService {
         const ts = ((date.getTime() * 10000) + 621355968000000000).toString();       
         const apiKey = "1d6a2541ad7271181845a41672d69b67";
         
-        //Hide this
-        const privateKey = "42fc7e3ad694d58d7e75a9be21518d3329a9b1d4";
+        //Insert secret key
+        const privateKey = "42fc7e3ad694d58d7e75a9be21518d**********";
         
         const hash = md5.start().appendStr(ts).appendStr(privateKey).appendStr(apiKey).end();
         const url = `https://gateway.marvel.com/v1/public/comics?${filter}orderBy=modified&ts=${ts}&apikey=${apiKey}&hash=${hash}`;
